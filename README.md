@@ -1,4 +1,4 @@
-# emscripten_webpack_loader
+# emscripten-webpack-loader
 
 .emc.jsの拡張子をみて、emscriptenかけてくれるwebpack_loader
 

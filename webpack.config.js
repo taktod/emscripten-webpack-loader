@@ -1,7 +1,8 @@
 module.exports = {
   entry: "./test/entry.js",
   output: {
-    filename: "test/out.js"
+    path: "test",
+    filename: "out.js"
   },
   target: "node"
 }

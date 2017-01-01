@@ -116,7 +116,8 @@ module.exports = function(source) {
     // 出力jsと同じところにemscriptenのjs.memをコピーしておく。
     // emscriptenのコンパイル後１度実行すればOKなのだが、configデータを参照する方法がわからなかったので、loaderの実行時にやってみる。
     // エラーになったときを考えてtryでくくってある。
-    var targetPath = path.dirname(this.options["output"]["filename"]);
+    var targetPath = path.dirname("./" + this.options["output"]["path"] + "/" + this.options["output"]["filename"]);
+    // ここで実行するコピーについて確認しなければならない。
     try {
       exec("cp .emscripten_loader/js/emc.js.mem " + targetPath);
     }

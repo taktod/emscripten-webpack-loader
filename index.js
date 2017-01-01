@@ -92,7 +92,8 @@ module.exports = function(source) {
     try {
       try {
         // sourceを実行する。jsであることを期待する。
-        eval(source);
+        // use strictは外しておく。そうしないとsourceとかの内容が見えなくなる。
+        eval(source.replace(/use strict/, ""));
         // source、func、cflags、ldflagsがあることを期待しておく。
       }
       catch(e) {

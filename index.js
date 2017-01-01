@@ -55,8 +55,8 @@ if(!isExistFile(".emscripten_loader/lock")) {
   checkFlag = false; // チェックしない。
   try {
     // とりあえずクリアしておく。
-    exec("rm .emscripten_loader/o/* 2>/dev/null");
-    exec("rm .emscripten_loader/js/* 2>/dev/null");
+    exec("rm .emscripten_loader/o/* >/dev/null 2>&1");
+    exec("rm .emscripten_loader/js/* >/dev/null 2>&1");
   }
   catch(e) {
   }
@@ -129,7 +129,7 @@ module.exports = function(source) {
     var targetPath = path.dirname(path.resolve(this.options["output"]["path"]) + "/" + this.options["output"]["filename"]);
     // ここで実行するコピーについて確認しなければならない。
     try {
-      exec("cp .emscripten_loader/js/emc.js.mem " + targetPath);
+      exec("cp .emscripten_loader/js/emc.js.mem " + targetPath + " >/dev/null 2>&1");
     }
     catch(e) {
     }

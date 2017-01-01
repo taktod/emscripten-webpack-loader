@@ -35,7 +35,8 @@ function arrayRemove(array, element) {
   if(idx == -1) {
     return array;
   }
-  return array.splice(idx, 1);
+  array.splice(idx, 1);
+  return array;
 }
 // .emscripten_loaderの作業ディレクトリがない場合
 if(!isExistFile(".emscripten_loader")) {

@@ -30,6 +30,13 @@ function isExistFile(file) {
     if(err.code === 'ENOENT') return false
   }
 };
+function arrayRemove(array, element) {
+  var idx = array.indexOf(element);
+  if(idx == -1) {
+    return array;
+  }
+  return array.splice(idx, 1);
+}
 // .emscripten_loaderの作業ディレクトリがない場合
 if(!isExistFile(".emscripten_loader")) {
   try {
@@ -57,7 +64,9 @@ if(!isExistFile(".emscripten_loader/lock")) {
   // lock用ファイルつくっておく。
   exec("touch .emscripten_loader/lock");
   // 現状と同じプロセスを実行する。
-  var out = "" + exec(process.argv.join(" "));
+  // ここで-wとか--watchが付いているコンパイルがくると、応答が帰ってこなくなって死ぬ。
+  // 他にも撤去すべき引数あるかもしれないけど、とりあえず放置
+  var out = "" + exec(arrayRemove(arrayRemove(process.argv, "-w"), "--watch").join(" "));
   // 前の処理がおわったので、ロックを撤去(中途でプロセスが殺されるとlockが消えないのでまずいね。)
 //  console.log(out);
   exec("rm .emscripten_loader/lock");

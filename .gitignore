@@ -1,0 +1,5 @@
+node_modules
+.emscripten_loader
+.vscode
+test/emc.js.mem
+test/out.js

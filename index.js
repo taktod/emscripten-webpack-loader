@@ -74,7 +74,7 @@ if(!isExistFile(".emscripten_loader/lock")) {
   // emcc test.o test2.o -o hoge.js -s EXPORTED_FUNCTIONS="['_test', '_test2']" -O2 --post-js src/entry.js
   // こういう感じのをつくる必要がある。
   // コマンドを実行
-  exec("emcc " + ("" + exec("find .emscripten_loader/o -name \"*.o\"")).split("\n").join(" ") + " -o .emscripten_loader/js/emc.js -s EXPORTED_FUNCTIONS=\"[" + exec("cat .emscripten_loader/funcs.txt") + "]\" -O2 --memory-init-file 0 --post-js .emscripten_loader/js/entry.js");
+  exec("emcc " + ("" + exec("find .emscripten_loader/o -name \"*.o\"")).split("\n").join(" ") + " -o .emscripten_loader/js/emc.js -s EXPORTED_FUNCTIONS=\"[" + exec("cat .emscripten_loader/funcs.txt") + "]\" -O2 --memory-init-file 0 --post-js .emscripten_loader/js/entry.js " + exec("cat .emscripten_loader/ldflags.txt"));
   // jsとjs.memができるはず。js.memは出力jsと同じところにおいときたい。
 }
 else {

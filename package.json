@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/emscripten": "0.0.29",
+    "awesome-typescript-loader": "^3.0.0-beta.17",
+    "typescript": "^2.1.4",
     "webpack": "^1.14.0"
   }
 }

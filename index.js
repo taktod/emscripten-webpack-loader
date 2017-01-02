@@ -74,7 +74,7 @@ if(!isExistFile(".emscripten_loader/lock")) {
   // emcc test.o test2.o -o hoge.js -s EXPORTED_FUNCTIONS="['_test', '_test2']" -O2 --post-js src/entry.js
   // こういう感じのをつくる必要がある。
   // コマンドを実行
-  exec("emcc " + ("" + exec("find .emscripten_loader/o -name \"*.o\"")).split("\n").join(" ") + " -o .emscripten_loader/js/emc.js -s EXPORTED_FUNCTIONS=\"[" + exec("cat .emscripten_loader/funcs.txt") + "]\" -O2 --post-js .emscripten_loader/js/entry.js");
+  exec("emcc " + ("" + exec("find .emscripten_loader/o -name \"*.o\"")).split("\n").join(" ") + " -o .emscripten_loader/js/emc.js -s EXPORTED_FUNCTIONS=\"[" + exec("cat .emscripten_loader/funcs.txt") + "]\" -O2 --memory-init-file 0 --post-js .emscripten_loader/js/entry.js");
   // jsとjs.memができるはず。js.memは出力jsと同じところにおいときたい。
 }
 else {
@@ -98,6 +98,8 @@ module.exports = function(source) {
       }
       catch(e) {
       }
+      console.log(source);
+      console.log(func);
       // 実行パスを確認しておく。
       var basepath = loaderUtils.interpolateName(this, "[path]", {context: this.options.context})
       var precommand = "";
@@ -127,13 +129,13 @@ module.exports = function(source) {
     // 出力jsと同じところにemscriptenのjs.memをコピーしておく。
     // emscriptenのコンパイル後１度実行すればOKなのだが、configデータを参照する方法がわからなかったので、loaderの実行時にやってみる。
     // エラーになったときを考えてtryでくくってある。
-    var targetPath = path.dirname(path.resolve(this.options["output"]["path"]) + "/" + this.options["output"]["filename"]);
+/*    var targetPath = path.dirname(path.resolve(this.options["output"]["path"]) + "/" + this.options["output"]["filename"]);
     // ここで実行するコピーについて確認しなければならない。
     try {
       exec("cp .emscripten_loader/js/emc.js.mem " + targetPath + " >/dev/null 2>&1");
     }
     catch(e) {
-    }
+    }*/
     // 処理対象のjsのパスから、先頭に追加すべき、emscriptenのjsへアクセスするためのrequireを追加する。
     var target = loaderUtils.interpolateName(this, "[path]", {context: this.options.context});
     target = path.normalize(target);
